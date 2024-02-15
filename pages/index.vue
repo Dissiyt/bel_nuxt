@@ -2,16 +2,20 @@
   <h1>Belegungsplan</h1>
   <!--  <STG_SVG @click="toggleReserve"/>-->
 
-  <div v-for="room in rooms" :key="room.floor">
-    <h1>{{room.name}}</h1>
-    <div class="Map" v-html="room.map" ></div>
-  </div>
+
+    <h1>{{rooms[0].name}}</h1>
+    <div class="Map" v-html="rooms[0].map" ></div>
+
 
 </template>
 
 <script setup>
 
 const {data: rooms} = await useFetch('http://ictbelplawp01:8080/rooms?buildingId=1')
+
+
+const { data: occupations } = await useFetch('http://ictbelplawp01:8080/occupations?roomId=1')
+console.log(occupations)
 </script>
 
 <style scoped>
