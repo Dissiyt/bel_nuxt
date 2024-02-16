@@ -12,59 +12,49 @@
 
 </template>
 
-<script>
-//Gets Date, const months is an array with all months to select the current
-const date= new Date();
+<script setup>
+import { ref, defineEmits } from 'vue';
+
+// Gets Date, const months is an array with all months to select the current
+const date = new Date();
 const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
+const reserve = ref('');
+const desk = "Tisch 1";
+const day = date.getDay(); // gets the current day out of date
+const month = months[date.getMonth()]; // gets the current month and name of the month
+const emit = defineEmits(["confirm", "close"])
+const confirm = () => {
+  emit('confirm');
+};
 
-export default {
+const reserveSub = () => {
+  emit('close');
+  console.log(reserve.value); // debugging
 
-  data(){
-    return{
-      reserve: '',
-      desk: "Tisch 1",
-      day: date.getDay(), //gets the current day out of date
-      month: months[date.getMonth()], //gets the current month and name of the month
+  // API Request Options
+  const myHeaders = new Headers();
+  myHeaders.append("Content-Type", "application/json");
 
-    }
-  },
+  const raw = JSON.stringify({
+    "deskId": reserve.value,
+    "reservant": "Yannic"
+  });
 
-  methods:{
-    Confirm(){
-      this.$emit('confirm')
-    },
-    reserveSub(){
-      this.$emit('close')
-      let reserve = this.reserve
-      console.log(reserve) //debugging
-      //API Request Options
-      var myHeaders = new Headers();
-      myHeaders.append("Content-Type", "application/json");
+  const requestOptions = {
+    method: 'POST',
+    headers: myHeaders,
+    body: raw,
+    redirect: 'follow'
+  };
 
-      var raw = JSON.stringify({
-        "deskId": reserve,
-        "reservant": "Yannic"
-      });
+  console.log(raw); // debugging
+  console.log("Reservation was submitted"); // debugging
 
-      var requestOptions = {
-        method: 'POST',
-        headers: myHeaders,
-        body: raw,
-        redirect: 'follow'
-      };
-
-      console.log(raw) //debugging
-      console.log("Reservation was submitted") //debugging
-
-      //API Post Request to reserve desk. Takes desk number from forms input
-      fetch("http://localhost:8080/reservations", requestOptions)
-          .then(response => response.text())
-          .then(result => console.log(result))
-          .catch(error => console.log('error', error));
-    }
-  }
-}
+  // API Post Request to reserve desk. Takes desk number from forms input
+  useFetch("http://ictbelplawp01:8080/reservations", requestOptions)
+      .catch(error => console.log('error', error));
+};
 </script>
 
 <style scoped>
