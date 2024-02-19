@@ -33,27 +33,27 @@ const reserveSub = () => {
   console.log(reserve.value); // debugging
 
   // API Request Options
-  const myHeaders = new Headers();
-  myHeaders.append("Content-Type", "application/json");
-
-  const raw = JSON.stringify({
-    "deskId": reserve.value,
-    "reservant": "Yannic"
-  });
-
-  const requestOptions = {
-    method: 'POST',
-    headers: myHeaders,
-    body: raw,
-    redirect: 'follow'
-  };
-
-  console.log(raw); // debugging
-  console.log("Reservation was submitted"); // debugging
-
-  // API Post Request to reserve desk. Takes desk number from forms input
-  useFetch("http://ictbelplawp01:8080/reservations", requestOptions)
-      .catch(error => console.log('error', error));
+  // const myHeaders = new Headers();
+  // myHeaders.append("Content-Type", "application/json");
+  //
+  // const raw = JSON.stringify({
+  //   "deskId": reserve.value,
+  //   "reservant": "Yannic"
+  // });
+  //
+  // const requestOptions = {
+  //   method: 'POST',
+  //   headers: myHeaders,
+  //   body: raw,
+  //   redirect: 'follow'
+  // };
+  //
+  // console.log(raw); // debugging
+  // console.log("Reservation was submitted"); // debugging
+  //
+  // // API Post Request to reserve desk. Takes desk number from forms input
+  // useFetch("http://ictbelplawp01:8080/reservations", requestOptions)
+  //     .catch(error => console.log('error', error));
 };
 </script>
 
