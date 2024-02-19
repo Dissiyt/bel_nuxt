@@ -1,4 +1,4 @@
-import defineStore  from '@pinia/nuxt'
+
 import type {Reservation} from "~/types";
 
 // @ts-ignore
@@ -12,9 +12,11 @@ export const useReservationStore = defineStore("reserve",() => {
                 body: data,
             })
             setReservation(res.reservant)
+            console.log(res)
         } catch (error) {
             setReservation()
             console.log(error)
         }
     }
+    return {reservation, setReservation, reserve}
 })

@@ -13,7 +13,8 @@
 </template>
 
 <script setup>
-import { ref, defineEmits } from 'vue';
+import {ref, defineEmits} from 'vue';
+import {useReservationStore} from "../stores/reservation_store.ts";
 
 // Gets Date, const months is an array with all months to select the current
 const date = new Date();
@@ -24,37 +25,20 @@ const desk = "Tisch 1";
 const day = date.getDay(); // gets the current day out of date
 const month = months[date.getMonth()]; // gets the current month and name of the month
 const emit = defineEmits(["confirm", "close"])
+const useReservation = useReservationStore();
+
+const reserveSub = async () => {
+  emit('close');
+  console.log(reserve.value); // debugging
+  await useReservation.reserve({
+    deskId: 1,
+    reservant: "test",
+  });
+};
 const confirm = () => {
   emit('confirm');
 };
 
-const reserveSub = () => {
-  emit('close');
-  console.log(reserve.value); // debugging
-
-  // API Request Options
-  // const myHeaders = new Headers();
-  // myHeaders.append("Content-Type", "application/json");
-  //
-  // const raw = JSON.stringify({
-  //   "deskId": reserve.value,
-  //   "reservant": "Yannic"
-  // });
-  //
-  // const requestOptions = {
-  //   method: 'POST',
-  //   headers: myHeaders,
-  //   body: raw,
-  //   redirect: 'follow'
-  // };
-  //
-  // console.log(raw); // debugging
-  // console.log("Reservation was submitted"); // debugging
-  //
-  // // API Post Request to reserve desk. Takes desk number from forms input
-  // useFetch("http://ictbelplawp01:8080/reservations", requestOptions)
-  //     .catch(error => console.log('error', error));
-};
 </script>
 
 <style scoped>
@@ -68,7 +52,7 @@ const reserveSub = () => {
 
 }
 
-.reserve p{
+.reserve p {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
