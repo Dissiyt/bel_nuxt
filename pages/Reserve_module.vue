@@ -25,16 +25,29 @@ const desk = "Tisch 1";
 const day = date.getDay(); // gets the current day out of date
 const month = months[date.getMonth()]; // gets the current month and name of the month
 const emit = defineEmits(["confirm", "close"])
-const useReservation = useReservationStore();
+// const useReservation = useReservationStore();
 
 const reserveSub = async () => {
   emit('close');
   console.log(reserve.value); // debugging
-  await useReservation.reserve({
+  const data = {
     deskId: 1,
-    reservant: "test",
-  });
+    reservant: "Yannic"
+  };
+  try {
+    const response = await $fetch('/api/reservation', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    });
+    console.log('Success:', response);
+  } catch (error) {
+    console.error('Error:', error);
+  }
 };
+
 const confirm = () => {
   emit('confirm');
 };
