@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@pinia/nuxt": "^0.5.1",
+    "body-parser": "^1.20.2",
     "nuxt": "^3.10.1",
     "path": "^0.12.7",
     "unenv": "^0.4.3",
