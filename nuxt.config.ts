@@ -6,7 +6,7 @@ export default defineNuxtConfig({
   devServer: {
     port: 8080,
   },
-  modules: ['@pinia/nuxt'],
+  modules: ['@pinia/nuxt', '@nuxtjs/sitemap'],
   alias: {
     pinia: "/node_modules/@pinia/nuxt/node_modules/pinia/dist/pinia.mjs"
   },

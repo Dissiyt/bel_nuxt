@@ -19,6 +19,7 @@
     "vue-router": "^4.2.5"
   },
   "devDependencies": {
+    "@nuxtjs/sitemap": "^5.1.0",
     "@types/node": "^20.11.19"
   }
 }
